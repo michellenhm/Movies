@@ -1,0 +1,12 @@
+.navbar-container{
+    justify-content: end;
+    display: flex;
+    position: relative;
+}
+.navbar-links {
+  display: flex;
+  gap: 20%;
+}
+.nav-link:hover{
+    opacity: 0.3;
+}

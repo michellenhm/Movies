@@ -1,0 +1,22 @@
+.search {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 10px;
+}
+
+.input {
+    width: 50%;
+    height: 40px;
+    border: none;
+    font-size: large;
+    background-color: rgb(33,31,49);
+    border-radius: 10px;
+    box-shadow: 1px 1px 12px 1px rgba(76,56,99,0.5);
+    color: white;
+}
+
+::placeholder {
+    color: white;
+    padding-left: 10px;
+}

@@ -1,0 +1,13 @@
+span{
+  background-image: linear-gradient(to right, #8278f2 0%, #e6d5fb 100%);
+  color: transparent;
+  background-clip: text;
+}
+
+h1{
+    text-align: center;
+}
+
+body {
+  color: white;
+}

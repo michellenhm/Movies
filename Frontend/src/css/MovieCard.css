@@ -1,0 +1,70 @@
+.movies-ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style-type: none;
+    margin: 0;
+    justify-content: center;
+    padding-left: 10%;
+    padding-right: 10%
+
+}
+
+.movie{
+    color: #ffffff;
+}
+
+.poster{
+    width: 100%;
+}
+
+.movie-card{
+    background-color: rgb(30,27,64);
+    color: white;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 1px 1px 12px 1px rgba(76,56,99,0.5);
+    width: 20%;
+    position: relative;
+    transition: opacity 0.3s ease;
+}
+.movie-card:hover {
+    transform: translateY(-5px);
+    background-color: rgb(24, 22, 54);
+}
+/* invisble till hover */
+.favorite-container {
+    opacity: 0;
+    right: 10px;
+    position: absolute;
+    transition: opacity 0.3s ease;
+}
+
+.favorite-container:hover{
+    cursor: pointer;
+}
+/* favorite container only appear when hover on movie card */
+.movie-card:hover .favorite-container { 
+    opacity: 1;
+    transform: translateY(-5px);
+    background-color: rgb(24, 22, 54);
+    border-radius: 40px;
+    padding: 1%;
+}
+
+.fav-btn{
+    border: none;
+}
+
+.content{
+    display: flex;
+    align-items: left;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.dot, .year, .lang {
+    margin-top: 2%;
+    color: rgb(172, 172, 172);
+}
