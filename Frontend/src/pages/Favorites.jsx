@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import MovieCard from '../components/MovieCard.jsx'
 import '../css/Favorites.css';
-import { faV } from '@fortawesome/free-solid-svg-icons';
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8081/favorites')
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
+    const fetchFavorites = async () => {
+      try {
+        const res = await fetch('http://localhost:8081/favorites');
+        const data = await res.json();
         setFavorites(data);
-      })
-      .catch(err => console.log(err));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchFavorites();
   }, []);
 
   return (

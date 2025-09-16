@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/MovieCard.css";
-import { useState } from "react";
-//presentational component -- accept props and render UI
 
-export const MovieCard = ({ movie: {title, vote_average, poster_path, release_date, original_language} }) => {
+export const MovieCard = ({ movie }) => {
+  const { id, title, vote_average, poster_path, release_date, original_language } = movie;
   const [hasLiked, setHasLiked] = useState(false);
-  const handleLike = () => {
+
+  const handleLike = async () => {
     setHasLiked(!hasLiked);
-  }
+
+    try {
+      if (!hasLiked) {
+        // Add to favorites
+        await fetch('http://localhost:8081/favorites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(movie),
+        });
+      } else {
+        // Remove from favorites
+        await fetch(`http://localhost:8081/favorites/${id}`, {
+          method: 'DELETE',
+        });
+      }
+    } catch (err) {
+      console.error("Error updating favorites", err);
+    }
+  };
+
   return (
     <div className="movie-card">
       <div className="favorite-container">
-        <button className="fav-btn" onClick={handleLike}>{hasLiked ? '❤️' : '🤍'}</button>
+        <button className="fav-btn" onClick={handleLike}>
+          {hasLiked ? '❤️' : '🤍'}
+        </button>
       </div>
 
       <img
@@ -26,7 +47,7 @@ export const MovieCard = ({ movie: {title, vote_average, poster_path, release_da
 
       <div className="content">
         <div className="rating">
-            <p>⭐ {vote_average ? vote_average.toFixed(1) : 'N/A'}</p>
+          <p>⭐ {vote_average ? vote_average.toFixed(1) : 'N/A'}</p>
         </div>
         <span className="dot"> • </span>
         <p className="lang">{original_language}</p>
@@ -37,4 +58,4 @@ export const MovieCard = ({ movie: {title, vote_average, poster_path, release_da
   )
 }
 
-export default MovieCard
+export default MovieCard;
