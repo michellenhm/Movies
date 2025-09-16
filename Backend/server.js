@@ -21,10 +21,15 @@ db.connect((err) => {
     console.log("✅ Database connected!");
 });
 
+app.listen(8081, () => {
+    console.log("Listening on port 8081");
+});
+
 app.get('/', (req, res) => {
     return res.json("from backend side");
 }); 
 
+// display all fav movies
 app.get('/favorites', (req, res) => {
     const sql = "SELECT * FROM favorites";
     db.query(sql, (err, data) => {
@@ -32,10 +37,8 @@ app.get('/favorites', (req, res) => {
             console.error("Query error:", err);
             return res.status(500).json(err);
         }
-        return res.json(data);
+        return res.status(200).json(data);
     });
 });
 
-app.listen(8081, () => {
-    console.log("Listening on port 8081");
-});
+
