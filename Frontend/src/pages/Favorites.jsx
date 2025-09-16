@@ -18,7 +18,6 @@ function Favorites() {
     fetchFavorites();
   }, []);
 
-
   return (
     <div className='fav-container'>
       <header>

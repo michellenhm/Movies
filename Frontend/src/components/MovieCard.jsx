@@ -7,11 +7,10 @@ export const MovieCard = ({ movie }) => {
   const [favorites, setFavorites] = useContext(Context);
   const [hasLiked, setHasLiked] = useState(false);
 
-  // Check if movie is already in favorites
   useEffect(() => {
-  const isFavorited = favorites.some(fav => fav.id === id);
-  setHasLiked(isFavorited);
-}, [favorites, id]);
+    const isFavorited = favorites.some(fav => fav.id === id);
+    setHasLiked(isFavorited);
+  }, [favorites, id]);
 
 
   const handleLike = async () => {
