@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/MovieCard.css";
 
 export const MovieCard = ({ movie }) => {
   const { id, title, vote_average, poster_path, release_date, original_language } = movie;
   const [hasLiked, setHasLiked] = useState(false);
+
+  // Check if movie is already in favorites
+  useEffect(() => {
+    const checkFavorite = async () => {
+      try {
+        const res = await fetch('http://localhost:8081/favorites');
+        const data = await res.json();
+        const isFavorited = data.some(fav => fav.id === id);
+        setHasLiked(isFavorited);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    checkFavorite();
+  }, [id]);
 
   const handleLike = async () => {
     setHasLiked(!hasLiked);
