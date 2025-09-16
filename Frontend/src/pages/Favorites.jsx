@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import MovieCard from '../components/MovieCard.jsx'
 import '../css/Favorites.css';
 import {Context} from '../App.jsx'
@@ -17,6 +17,7 @@ function Favorites() {
     };
     fetchFavorites();
   }, []);
+
 
   return (
     <div className='fav-container'>
