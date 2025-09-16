@@ -17,9 +17,6 @@ const API_OPTIONS = {
   }
 }
 
-// build full stack app - develop server, set up database, connect, host
-// instead, we will use backend as a service - firebase, supabase, appwrite
-
 function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [moviesList, setMovies] = useState([]);

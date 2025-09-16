@@ -38,7 +38,7 @@ export const MovieCard = ({ movie }) => {
   };
 
   return (
-    <div className="movie-card">
+    <div className={`movie-card ${hasLiked ? "liked-card" : ""}`}>
       <div className="favorite-container">
         <button className="fav-btn" onClick={handleLike}>
           {hasLiked ? '❤️' : '🤍'}

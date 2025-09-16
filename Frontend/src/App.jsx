@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import NavBar from './components/NavBar';
 export const Context = React.createContext();
+
 function App() {
   const [favorites, setFavorites] = useState([]);
   return (
