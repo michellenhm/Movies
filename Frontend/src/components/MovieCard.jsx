@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../css/MovieCard.css";
+import { Context } from "../App.jsx";
 
 export const MovieCard = ({ movie }) => {
   const { id, title, vote_average, poster_path, release_date, original_language } = movie;
+  const [favorites, setFavorites] = useContext(Context);
   const [hasLiked, setHasLiked] = useState(false);
 
   // Check if movie is already in favorites
   useEffect(() => {
-    const checkFavorite = async () => {
-      try {
-        const res = await fetch('http://localhost:8081/favorites');
-        const data = await res.json();
-        const isFavorited = data.some(fav => fav.id === id);
-        setHasLiked(isFavorited);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    checkFavorite();
-  }, [id]);
+  const isFavorited = favorites.some(fav => fav.id === id);
+  setHasLiked(isFavorited);
+}, [favorites, id]);
+
 
   const handleLike = async () => {
     setHasLiked(!hasLiked);
@@ -31,11 +25,13 @@ export const MovieCard = ({ movie }) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(movie),
         });
+        setFavorites([...favorites, movie]);
       } else {
         // Remove from favorites
         await fetch(`http://localhost:8081/favorites/${id}`, {
           method: 'DELETE',
         });
+        setFavorites(favorites.filter(fav => fav.id !== id));
       }
     } catch (err) {
       console.error("Error updating favorites", err);

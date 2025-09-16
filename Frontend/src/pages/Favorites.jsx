@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import MovieCard from '../components/MovieCard.jsx'
 import '../css/Favorites.css';
-
+import {Context} from '../App.jsx'
 function Favorites() {
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useContext(Context);
 
   useEffect(() => {
     const fetchFavorites = async () => {
