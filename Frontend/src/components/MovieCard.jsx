@@ -8,13 +8,16 @@ export const MovieCard = ({ movie }) => {
   const [hasLiked, setHasLiked] = useState(false);
   const [ showPopup, setShowPopup ] = useState(false);
   const [ folders, setFolders ] = useState([]);
+  const [toastMessage, setToastMessage] = useState("");
+
+
   // Check if movie is already in favorites
   useEffect(() => {
   const isFavorited = favorites.some(fav => fav.id === id);
   setHasLiked(isFavorited);
 }, [favorites, id]);
 
-  const handleAddtoFolder = async (folderId) => {
+  const handleAddtoFolder = async (folderId, folderName) => {
     try {
       await fetch(`http://localhost:8081/favorites/${id}/set-folder`, {
         method: "PUT",
@@ -26,6 +29,9 @@ export const MovieCard = ({ movie }) => {
         fav.id === id ? { ...fav, folder_id: folderId } : fav
       ));
       setShowPopup(false);
+      setToastMessage(`Movie added to ${folderName}!`);
+      setTimeout(() => setToastMessage(""), 2000)
+    
     } catch (err) {
       console.error("Error adding movie to folder", err);
     }
@@ -109,7 +115,7 @@ export const MovieCard = ({ movie }) => {
           <ul>
             {folders.map((folder) => (
               <li key={folder.id}>
-                <button onClick={() => handleAddtoFolder(folder.id)}>
+                <button onClick={() => handleAddtoFolder(folder.id, folder.name)}>
                   {folder.name}
                 </button>
               </li>
@@ -118,6 +124,13 @@ export const MovieCard = ({ movie }) => {
         </div>
       </div>
     )}
+    {toastMessage && (
+      <div className="toast">
+        {toastMessage}
+      </div>
+    )}
+
+
 
 
     </>
