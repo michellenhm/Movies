@@ -6,12 +6,43 @@ export const MovieCard = ({ movie }) => {
   const { id, title, vote_average, poster_path, release_date, original_language } = movie;
   const [favorites, setFavorites] = useContext(Context);
   const [hasLiked, setHasLiked] = useState(false);
-
+  const [ showPopup, setShowPopup ] = useState(false);
+  const [ folders, setFolders ] = useState([]);
   // Check if movie is already in favorites
   useEffect(() => {
   const isFavorited = favorites.some(fav => fav.id === id);
   setHasLiked(isFavorited);
 }, [favorites, id]);
+
+  const handleAddtoFolder = async (folderId) => {
+    try {
+      await fetch(`http://localhost:8081/favorites/${id}/set-folder`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ folder_id: folderId }),
+      });
+
+      setFavorites(favorites.map(fav =>
+        fav.id === id ? { ...fav, folder_id: folderId } : fav
+      ));
+      setShowPopup(false);
+    } catch (err) {
+      console.error("Error adding movie to folder", err);
+    }
+  };
+
+
+  const handlePlus = async () => {
+    try {
+      const res = await fetch('http://localhost:8081/folders');
+      const data = await res.json();
+      setFolders(data);
+      setShowPopup(true);
+      console.log(data);
+    } catch (e) {
+      console.log("Error showing folders: ", e);
+    }
+  }
 
   const handleLike = async () => {
     setHasLiked(!hasLiked);
@@ -38,10 +69,15 @@ export const MovieCard = ({ movie }) => {
   };
 
   return (
+    <>
     <div className={`movie-card ${hasLiked ? "liked-card" : ""}`}>
       <div className="favorite-container">
         <button className="fav-btn" onClick={handleLike}>
           {hasLiked ? '❤️' : '🤍'}
+        </button>
+
+        <button className="plus-btn" onClick={handlePlus}>
+          ➕
         </button>
       </div>
 
@@ -65,6 +101,26 @@ export const MovieCard = ({ movie }) => {
         <p className="year">{release_date ? release_date.split('-')[0] : 'N/A'}</p>
       </div>
     </div>
+
+    {showPopup && (
+      <div className="folder-popup-overlay" onClick={() => setShowPopup(false)}>
+        <div className="folder-popup" onClick={(e) => e.stopPropagation()}>
+          <h3 className="folder-h3">Add to Folder</h3>
+          <ul>
+            {folders.map((folder) => (
+              <li key={folder.id}>
+                <button onClick={() => handleAddtoFolder(folder.id)}>
+                  {folder.name}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
+
+
+    </>
   )
 }
 

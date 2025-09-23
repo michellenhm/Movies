@@ -69,6 +69,33 @@ app.delete('/favorites/:id', (req, res) => {
     });
 });
 
+app.get('/folders', (req,res) => {
+    const sql = "SELECT * FROM folders";
+    db.query(sql, (err,data) => {
+        if (err){
+            console.log("could not fetch folders", err);
+            return res.status(500).json(err);
+        }
+        return res.status(200).json(data);
+    })
+});
+
+//update folder_id in favorits
+app.put('/favorites/:id/set-folder', (req, res) => {
+  const { id } = req.params;                 // movie id
+  const { folder_id } = req.body;            // folder id from React
+
+  const sql = "UPDATE favorites SET folder_id = ? WHERE id = ?";
+
+  db.query(sql, [folder_id, id], (err, result) => {
+    if (err) {
+      console.error("Error updating folder_id:", err);
+      return res.status(500).json(err);
+    }
+    return res.status(200).json({ message: "Folder updated for movie" });
+  });
+});
+
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });
