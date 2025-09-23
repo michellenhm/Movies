@@ -81,10 +81,12 @@ export const MovieCard = ({ movie }) => {
         <button className="fav-btn" onClick={handleLike}>
           {hasLiked ? '❤️' : '🤍'}
         </button>
-
-        <button className="plus-btn" onClick={handlePlus}>
+        {hasLiked && (
+          <button className="plus-btn" onClick={handlePlus}>
           ➕
         </button>
+        )}
+        
       </div>
 
       <img
