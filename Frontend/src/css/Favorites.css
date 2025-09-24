@@ -55,7 +55,7 @@ body {
 
 .folder-footer{
   display: flex;
-  background-color: rgba(44, 29, 121, 0.2);
+  background-color: rgba(44, 29, 121, 0.098);
   border-radius: 20px;
   margin-bottom: 2%;
   margin-left: 10%;
@@ -64,14 +64,18 @@ body {
 
 .icon-container {
   display: flex;
-  margin-left: 60%;
-  gap: 3%;
+  margin-left: 65%;
+  gap: 15%;
 }
 
 .foldername-container{
-  margin-left: 10%;
+  margin-left: 8%;
 }
 
 .folder-block{
   margin-bottom: 10%;
+}
+
+.trash-btn, .pencil-btn{
+  border: none;
 }

@@ -2,6 +2,9 @@ import React, { useEffect, useContext, useState } from 'react';
 import MovieCard from '../components/MovieCard.jsx'
 import '../css/Favorites.css';
 import {Context} from '../App.jsx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
+
 function Favorites() {
   const [favorites, setFavorites] = useContext(Context);
   const [viewMode, setViewMode] = useState("all"); //show all movies by default
@@ -86,8 +89,8 @@ function Favorites() {
                   
 
                   <div className='icon-container'>
-                    <p>trash icon</p>
-                    <p>edit icon</p>
+                    <button className='pencil-btn'><FontAwesomeIcon icon={faPencil} style={{ color: "#ffffff" }} /></button>
+                    <button className='trash-btn'><FontAwesomeIcon icon={faTrashCan} style={{ color: "#ffffff" }} /></button>
                   </div>
                   
                 </div>
