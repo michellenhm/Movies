@@ -12,11 +12,24 @@ body {
   color: white;
 }
 
-.toggle-buttons{
+
+.toggle-buttons, .folder-nav{
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-bottom: 3%;
+}
+
+.folder-nav-btn {
+  background-color: rgb(42, 49, 84);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 20px;
+  border: none;
+  width: 10%;
+  color: #ffffff;
 }
 
 .toggle-btn {

@@ -58,11 +58,25 @@ function Favorites() {
         </section>
       ) :
         <section className='folder-section'>
+          <div className="folder-nav">
+            {folders.map((folder) => (
+              <button
+                key={folder.id}
+                onClick={() => {
+                  document.getElementById(`folder-${folder.id}`)?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="folder-nav-btn"
+              >
+                {folder.name}
+              </button>
+            ))}
+          </div>
+          
           {favorites.length === 0 ? (
             'You have not favorited any movies!'
           ) : ( 
             folders.map((folder) => (
-              <div key={folder.id} className='folder-block'>
+              <div key={folder.id} id={`folder-${folder.id}`} className='folder-block'>
                 <div className='folder-footer'>
                   <div className='foldername-container'>
                     <h2>{folder.name}</h2>
