@@ -117,7 +117,10 @@ export const MovieCard = ({ movie }) => {
           <ul>
             {folders.map((folder) => (
               <li key={folder.id}>
-                <button onClick={() => handleAddtoFolder(folder.id, folder.name)}>
+                <button 
+                  className={movie.folder_id === folder.id ? "folder-btn active" : "folder-btn"}
+                  onClick={() => handleAddtoFolder(folder.id, folder.name)}
+                >
                   {folder.name}
                 </button>
               </li>

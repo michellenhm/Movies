@@ -11,3 +11,49 @@ h1{
 body {
   color: white;
 }
+
+.toggle-buttons{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 3%;
+}
+
+.toggle-btn {
+  background-color: rgb(54, 71, 155);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 20px;
+  border: none;
+  width: 20%;
+  color: #ffffff;
+}
+
+.toggle-btn:hover {
+  box-shadow: 1px 1px 5px 1px rgba(136, 122, 152, 0.5); 
+}
+
+.folder-footer{
+  display: flex;
+  background-color: rgba(44, 29, 121, 0.2);
+  border-radius: 20px;
+  margin-bottom: 2%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.icon-container {
+  display: flex;
+  margin-left: 60%;
+  gap: 3%;
+}
+
+.foldername-container{
+  margin-left: 10%;
+}
+
+.folder-block{
+  margin-bottom: 10%;
+}

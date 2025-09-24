@@ -87,7 +87,7 @@ app.put('/favorites/:id/set-folder', (req, res) => {
 
   const sql = "UPDATE favorites SET folder_id = ? WHERE id = ?";
 
-  db.query(sql, [folder_id, id], (err, result) => {
+  db.query(sql, [folder_id, id], (err, data) => {
     if (err) {
       console.error("Error updating folder_id:", err);
       return res.status(500).json(err);
@@ -95,6 +95,20 @@ app.put('/favorites/:id/set-folder', (req, res) => {
     return res.status(200).json({ message: "Folder updated for movie" });
   });
 });
+
+//get movies by folder
+app.get('/favorites/folder/:folderId', (req,res) => {
+    const { folderId } = req.params;
+    const sql = "SELECT * FROM favorites WHERE folder_id = ?"
+    db.query(sql, [folderId], (err,data) => {
+        if (err){
+            console.log("could not fetch movies from folder");
+            return res.status(500).json(err);
+        }
+        return res.status(200).json(data);
+    })
+});
+
 
 app.listen(8081, () => {
     console.log("Listening on port 8081");
