@@ -68,10 +68,12 @@ function Favorites() {
                 className="folder-nav-btn"
               >
                 {folder.name}
+                
               </button>
             ))}
+            <button className='add-folder-btn'>Add Folder</button>
           </div>
-          
+
           {favorites.length === 0 ? (
             'You have not favorited any movies!'
           ) : ( 

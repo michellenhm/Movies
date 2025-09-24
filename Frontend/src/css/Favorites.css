@@ -20,7 +20,7 @@ body {
   margin-bottom: 3%;
 }
 
-.folder-nav-btn {
+.folder-nav-btn, .add-folder-btn {
   background-color: rgb(42, 49, 84);
   display: flex;
   align-items: center;
@@ -28,8 +28,13 @@ body {
   cursor: pointer;
   border-radius: 20px;
   border: none;
-  width: 10%;
+  width: 15%;
+  word-wrap: break-word;
   color: #ffffff;
+}
+
+.add-folder-btn{
+  background-color: rgb(203, 46, 46);
 }
 
 .toggle-btn {

@@ -115,6 +115,7 @@ export const MovieCard = ({ movie }) => {
         <div className="folder-popup" onClick={(e) => e.stopPropagation()}>
           <h3 className="folder-h3">Add to Folder</h3>
           <ul>
+            <button className='add-folder-popup'>Create New Folder</button>
             {folders.map((folder) => (
               <li key={folder.id}>
                 <button 
