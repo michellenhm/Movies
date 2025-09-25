@@ -10,6 +10,33 @@ function Favorites() {
   const [viewMode, setViewMode] = useState("all"); //show all movies by default
   const [folders, setFolders] = useState([]);
 
+  const handleDeleteFolder = async (folderId) => {
+    try {
+      const res = await fetch(`http://localhost:8081/folders/${folderId}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        console.log('server error: ', text);
+        throw new Error('failed to delete folder');
+      }
+
+      setFolders(folders.filter((folder) => folder.id != folderId));
+      setFavorites(favorites.map((fav) => fav.folder_id === folderId ? {...fav, folder_id:null} : fav)); //set folder_id of favorites to null for deleted folder
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleUpdateFolder = async (folderId) => {
+    // update the folder name
+    // update the favorites so each movie has new folder_id
+    
+    
+  }
+
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
@@ -89,8 +116,8 @@ function Favorites() {
                   
 
                   <div className='icon-container'>
-                    <button className='pencil-btn'><FontAwesomeIcon icon={faPencil} style={{ color: "#ffffff" }} /></button>
-                    <button className='trash-btn'><FontAwesomeIcon icon={faTrashCan} style={{ color: "#ffffff" }} /></button>
+                    <button onClick={() => handleUpdateFolder(folder.id)} className='pencil-btn'><FontAwesomeIcon icon={faPencil} style={{ color: "#ffffff" }} /></button>
+                    <button onClick={() => handleDeleteFolder(folder.id)} className='trash-btn'><FontAwesomeIcon icon={faTrashCan} style={{ color: "#ffffff" }} /></button>
                   </div>
                   
                 </div>

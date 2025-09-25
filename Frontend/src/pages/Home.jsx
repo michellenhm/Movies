@@ -46,12 +46,14 @@ function Home() {
       }
       const data = await response.json()
 
+      // error fetching
       if (data.response === 'False') {
         setError(data.error)
         setMovies([])
         return;
       }
       
+      //successful fetch, store data
       setMovies(data.results || []);
       console.log(data);
       

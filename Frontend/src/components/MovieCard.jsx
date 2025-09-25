@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "../css/MovieCard.css";
 import "../css/Favorites.css";
 import { Context } from "../App.jsx";
+import FolderPopup from "./FolderPopup.jsx";
 
 export const MovieCard = ({ movie }) => {
   const { id, title, vote_average, poster_path, release_date, original_language } = movie;
@@ -10,12 +11,16 @@ export const MovieCard = ({ movie }) => {
   const [ showPopup, setShowPopup ] = useState(false);
   const [ folders, setFolders ] = useState([]);
   const [toastMessage, setToastMessage] = useState("");
+  const [folderName, setFolderName] = useState("");
+  const [folderPopup,setFolderPopup] = useState(false);
+  
  
   // Check if movie is already in favorites
   useEffect(() => {
   const isFavorited = favorites.some(fav => fav.id === id);
   setHasLiked(isFavorited);
 }, [favorites, id]);
+
 
   const handleAddtoFolder = async (folderId, folderName) => {
     try {
@@ -115,7 +120,7 @@ export const MovieCard = ({ movie }) => {
         <div className="folder-popup" onClick={(e) => e.stopPropagation()}>
           <h3 className="folder-h3">Add to Folder</h3>
           <ul>
-            <button className='add-folder-popup'>Create New Folder</button>
+            <button onClick={() => {setFolderPopup(true)}} className='add-folder-popup'>Create New Folder</button>
             {folders.map((folder) => (
               <li key={folder.id}>
                 <button 
@@ -130,6 +135,17 @@ export const MovieCard = ({ movie }) => {
         </div>
       </div>
     )}
+
+    {folderPopup && (
+      <FolderPopup
+        folderName={folderName}
+        setFolderName={setFolderName}
+        setFolderPopup={setFolderPopup}
+        folders={folders}
+        setFolders={setFolders}
+      />
+    )}
+
     {toastMessage && (
       <div className="toast">
         {toastMessage}

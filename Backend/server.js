@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 require('dotenv').config();
 
 const PASSWORD = process.env.MYSQL_PASSWORD;
@@ -107,6 +107,40 @@ app.get('/favorites/folder/:folderId', (req,res) => {
         }
         return res.status(200).json(data);
     })
+});
+
+// add folder 
+app.post('/addFolder', (req, res) => {
+    const {name} = req.body;
+    const sql = `INSERT INTO folders (name) VALUES (?)`;
+    db.query(sql, [name], (err, data) => {
+        if (err){
+            console.log('could not add folder');
+            res.status(500).json(err);
+        }
+        return res.status(200).json({ id: data.insertId, name });
+    })
+});
+
+//delete folder
+app.delete('/folders/:id', (req, res) => {
+    const {id} = req.params;
+    const sql = "DELETE FROM folders WHERE id = ?";
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error("Delete error:", err);
+            return res.status(500).json(err);
+        }
+        return res.status(200).json({message: "Folder removed"});
+    });
+});
+
+//update folder name
+app.put('/folders/:id', (res, req) => {
+    const {id, name} = req.params;
+    const {newName} = req.body;
+
+    
 });
 
 
