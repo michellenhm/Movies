@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../css/MovieCard.css";
+import "../css/Favorites.css";
 import { Context } from "../App.jsx";
 
 export const MovieCard = ({ movie }) => {
@@ -9,8 +10,7 @@ export const MovieCard = ({ movie }) => {
   const [ showPopup, setShowPopup ] = useState(false);
   const [ folders, setFolders ] = useState([]);
   const [toastMessage, setToastMessage] = useState("");
-
-
+ 
   // Check if movie is already in favorites
   useEffect(() => {
   const isFavorited = favorites.some(fav => fav.id === id);

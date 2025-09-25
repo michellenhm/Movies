@@ -66,7 +66,7 @@ function Favorites() {
               <button
                 key={folder.id}
                 onClick={() => {
-                  document.getElementById(`folder-${folder.id}`)?.scrollIntoView({ behavior: "smooth" });
+                  document.getElementById(`folder-${folder.id}`).scrollIntoView({behavior:'smooth'});
                 }}
                 className="folder-nav-btn"
               >

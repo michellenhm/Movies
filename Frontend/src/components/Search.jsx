@@ -9,7 +9,6 @@ export const Search = ({searchTerm, setSearchTerm}) => {
     return (
         <div className="container">
             <div className="search">
-                {/* <FontAwesomeIcon icon={byPrefixAndName.fas['magnifying-glass']} /> */}
                 <input
                     className="input"
                     type="text"

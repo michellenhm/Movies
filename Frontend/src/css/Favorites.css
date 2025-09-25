@@ -28,14 +28,17 @@ body {
   cursor: pointer;
   border-radius: 20px;
   border: none;
-  width: 15%;
+  width: 10%;
   word-wrap: break-word;
   color: #ffffff;
+  font-size: 20px;
+  padding: 0.2%;
 }
 
 .add-folder-btn{
   background-color: rgb(203, 46, 46);
 }
+
 
 .toggle-btn {
   background-color: rgb(54, 71, 155);

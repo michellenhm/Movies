@@ -5,7 +5,6 @@ import Search from '../components/Search.jsx'
 import Spinner from '../components/Spinner.jsx'
 import MovieCard from '../components/MovieCard.jsx'
 import {useDebounce} from 'react-use'
-import { updateSearchCount } from '../appwrite.js'
 
 const API_BASE_URL = 'https://api.themoviedb.org/3'
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY
@@ -52,12 +51,9 @@ function Home() {
         setMovies([])
         return;
       }
+      
       setMovies(data.results || []);
       console.log(data);
-      
-      if (query && data.results.length > 0) {
-        await updateSearchCount(query, data.results[0]);
-      }
       
     } catch (err) {
         console.log(err)
@@ -81,8 +77,6 @@ function Home() {
           <h2>All Movies</h2>
 
           {loading && <Spinner />}
-          
-          {error && <div className="error-message">{error}</div>}
 
           <ul className="movies-ul">
             {moviesList.map((movie) => (
@@ -92,6 +86,7 @@ function Home() {
 
           {error && <p className='error-message'>{error}</p>}
         </section>
+
 
       </div>
 
