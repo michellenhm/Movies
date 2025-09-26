@@ -13,6 +13,7 @@ function Favorites() {
   const { favorites, setFavorites, folders, setFolders } = useContext(Context);
   const [updatePopup, setUpdatePopup] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
+  const [selectedFolderId, setSelectedFolderId] = useState(null);
 
   const handleDeleteFolder = async (folderId) => {
     try {
@@ -113,7 +114,13 @@ function Favorites() {
                   
 
                   <div className='icon-container'>
-                    <button onClick={() => setUpdatePopup(true)} className='pencil-btn'><FontAwesomeIcon icon={faPencil} style={{ color: "#ffffff" }} /></button>
+                    <button onClick={() => {
+                      setSelectedFolderId(folder.id);
+                      setNewFolderName(folder.name);
+                      setUpdatePopup(true)
+                    }} className='pencil-btn'>
+                      <FontAwesomeIcon icon={faPencil} style={{ color: "#ffffff" }} />
+                    </button>
                     <button onClick={() => handleDeleteFolder(folder.id)} className='trash-btn'><FontAwesomeIcon icon={faTrashCan} style={{ color: "#ffffff" }} /></button>
                   </div>
                   
@@ -137,12 +144,15 @@ function Favorites() {
 
       {updatePopup && (
         <UpdateFolderPopup
+          folderId={selectedFolderId} 
           newFolderName={newFolderName}
           setNewFolderName={setNewFolderName}
           setUpdatePopup={setUpdatePopup}
+          folders={folders}           
+          setFolders={setFolders}    
         />
       )}
-      {/* a popup appears asking for new name */}
+
       
     </div>
   );
