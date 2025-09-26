@@ -157,7 +157,7 @@ app.put('/folders/:id', (req, res) => {
             console.log(`could not update to ${newName}`);
             return res.status(500).json(err);
         }
-        return res.status(200).json({ id, name: newName });
+        return res.status(200).json({ id, name: newName }); //return the folder obj so i can add it to setFodlers
     })
     
 });

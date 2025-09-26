@@ -5,6 +5,7 @@ import {Context} from '../App.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 import UpdateFolderPopup from '../components/UpdateFolderPopup.jsx';
+import FolderPopup from '../components/FolderPopup.jsx';
 
 function Favorites() {
   //const [favorites, setFavorites] = useContext(Context);
@@ -14,6 +15,8 @@ function Favorites() {
   const [updatePopup, setUpdatePopup] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
   const [selectedFolderId, setSelectedFolderId] = useState(null);
+  const [folderPopup, setFolderPopup] = useState(false);
+
 
   const handleDeleteFolder = async (folderId) => {
     try {
@@ -99,7 +102,7 @@ function Favorites() {
                 
               </button>
             ))}
-            <button className='add-folder-btn'>Add Folder</button>
+            <button onClick={() => setFolderPopup(true)} className='add-folder-btn'>Add Folder</button>
           </div>
 
           {favorites.length === 0 ? (
@@ -152,6 +155,18 @@ function Favorites() {
           setFolders={setFolders}    
         />
       )}
+      
+      {folderPopup && (
+        <FolderPopup 
+          folderName={newFolderName} 
+          setFolderName={setNewFolderName} 
+          setFolderPopup={setFolderPopup} 
+          folders={folders} 
+          setFolders={setFolders} 
+        />
+      )}
+
+
 
       
     </div>
