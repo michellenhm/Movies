@@ -4,11 +4,15 @@ import '../css/Favorites.css';
 import {Context} from '../App.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
+import UpdateFolderPopup from '../components/UpdateFolderPopup.jsx';
 
 function Favorites() {
   const [favorites, setFavorites] = useContext(Context);
   const [viewMode, setViewMode] = useState("all"); //show all movies by default
   const [folders, setFolders] = useState([]);
+  const [updatePopup, setUpdatePopup] = useState(false);
+  const [newFolderName, setNewFolderName] = useState('');
+  const [selectedFolderId, setSelectedFolderId] = useState(null);
 
   const handleDeleteFolder = async (folderId) => {
     try {
@@ -28,13 +32,6 @@ function Favorites() {
     } catch (err) {
       console.log(err);
     }
-  }
-
-  const handleUpdateFolder = async (folderId) => {
-    // update the folder name
-    // update the favorites so each movie has new folder_id
-    
-    
   }
 
   useEffect(() => {
@@ -116,7 +113,16 @@ function Favorites() {
                   
 
                   <div className='icon-container'>
-                    <button onClick={() => handleUpdateFolder(folder.id)} className='pencil-btn'><FontAwesomeIcon icon={faPencil} style={{ color: "#ffffff" }} /></button>
+                    <button onClick={() => {
+                      setSelectedFolderId(folder.id);
+                      setNewFolderName(folder.name);
+                      setUpdatePopup(true)
+                    }}
+                    className='pencil-btn'
+                    >
+                      <FontAwesomeIcon icon={faPencil} style={{ color: "#ffffff" }} />
+                    </button>
+                      
                     <button onClick={() => handleDeleteFolder(folder.id)} className='trash-btn'><FontAwesomeIcon icon={faTrashCan} style={{ color: "#ffffff" }} /></button>
                   </div>
                   
@@ -127,7 +133,7 @@ function Favorites() {
                     {favorites
                       .filter((movie) => movie.folder_id == folder.id)
                       .map((movie) => (
-                        <MovieCard key={movie.id} movie={movie}/>
+                        <MovieCard key={`${folder.id}-${movie.id}`} movie={movie}/>
                     ))}
                   </ul>
                 </div>
@@ -137,6 +143,18 @@ function Favorites() {
           )}
         </section>
       }
+
+      {updatePopup && (
+        <UpdateFolderPopup
+          folderId={selectedFolderId}
+          newFolderName={newFolderName}
+          setNewFolderName={setNewFolderName}
+          setUpdatePopup={setUpdatePopup}
+          folders={folders}
+          setFolders={setFolders}
+        />
+      )}
+      {/* a popup appears asking for new name */}
       
     </div>
   );

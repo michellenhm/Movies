@@ -60,7 +60,7 @@ app.post('/favorites', (req, res) => {
 app.delete('/favorites/:id', (req, res) => {
     const {id} = req.params;
     const sql = "DELETE FROM favorites WHERE id = ?";
-    db.query(sql, [id], (err, result) => {
+    db.query(sql, [id], (err) => {
         if (err) {
             console.error("Delete error:", err);
             return res.status(500).json(err);
@@ -96,18 +96,18 @@ app.put('/favorites/:id/set-folder', (req, res) => {
   });
 });
 
-//get movies by folder
-app.get('/favorites/folder/:folderId', (req,res) => {
-    const { folderId } = req.params;
-    const sql = "SELECT * FROM favorites WHERE folder_id = ?"
-    db.query(sql, [folderId], (err,data) => {
-        if (err){
-            console.log("could not fetch movies from folder");
-            return res.status(500).json(err);
-        }
-        return res.status(200).json(data);
-    })
-});
+// //get movies by folder
+// app.get('/favorites/folder/:folderId', (req,res) => {
+//     const { folderId } = req.params.id;
+//     const sql = "SELECT * FROM favorites WHERE folder_id = ?"
+//     db.query(sql, [folderId], (err,data) => {
+//         if (err){
+//             console.log("could not fetch movies from folder");
+//             return res.status(500).json(err);
+//         }
+//         return res.status(200).json(data);
+//     })
+// });
 
 // add folder 
 app.post('/addFolder', (req, res) => {
@@ -124,22 +124,41 @@ app.post('/addFolder', (req, res) => {
 
 //delete folder
 app.delete('/folders/:id', (req, res) => {
-    const {id} = req.params;
-    const sql = "DELETE FROM folders WHERE id = ?";
-    db.query(sql, [id], (err, result) => {
+    const {id} = req.params; // {id: 3}
+    //const folderId = req.params.id;
+
+    //first, update favorites --- where 
+    const update_sql = `UPDATE favorites SET folder_id = NULL WHERE folder_id = ?`;
+    db.query(update_sql, [id], (err) => {
         if (err) {
-            console.error("Delete error:", err);
+            console.log("could not update favorites: ", err);
             return res.status(500).json(err);
         }
-        return res.status(200).json({message: "Folder removed"});
-    });
+
+        const delete_sql = `DELETE FROM folders WHERE id = ?`;
+        db.query(delete_sql, [id], (err) => {
+            if (err) {
+                console.error("Delete error: ", err);
+                return res.status(500).json({error: "Failed to remove folder"});
+            }
+            return res.status(200).json({message: "Folder removed: ", id});
+        });
+    })
 });
 
 //update folder name
-app.put('/folders/:id', (res, req) => {
-    const {id, name} = req.params;
+app.put('/folders/:id', (req, res) => {
+    const {id} = req.params;
     const {newName} = req.body;
 
+    const sql = `UPDATE folders SET name = ? WHERE id = ?`
+    db.query(sql, [newName, id], (err) => {
+        if (err){
+            console.log(`could not update to ${newName}`);
+            return res.status(500).json(err);
+        }
+        return res.status(200).json({ id, name: newName});
+    })
     
 });
 
