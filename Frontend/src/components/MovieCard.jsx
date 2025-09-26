@@ -6,10 +6,11 @@ import FolderPopup from "./FolderPopup.jsx";
 
 export const MovieCard = ({ movie }) => {
   const { id, title, vote_average, poster_path, release_date, original_language } = movie;
-  const [favorites, setFavorites] = useContext(Context);
+  //const [favorites, setFavorites] = useContext(Context);
   const [hasLiked, setHasLiked] = useState(false);
   const [ showPopup, setShowPopup ] = useState(false);
-  const [ folders, setFolders ] = useState([]);
+  //const [ folders, setFolders ] = useState([]);
+  const { favorites, setFavorites, folders, setFolders } = useContext(Context);
   const [toastMessage, setToastMessage] = useState("");
   const [folderName, setFolderName] = useState("");
   const [folderPopup,setFolderPopup] = useState(false);

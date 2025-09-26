@@ -24,7 +24,8 @@ const FolderPopup = ({folderName, setFolderName, setFolderPopup, folders, setFol
             }
 
             const newFolder = await res.json();
-            setFolders([...folders, newFolder]);
+            //setFolders([...folders, newFolder]) relies on curr value of folders
+            setFolders(prev => [...prev, newFolder]); // updater function. receives latest state as prev. safe for concurrent updates
             setFolderPopup(false);
             setFolderName('');
         } catch (err) {

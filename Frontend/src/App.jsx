@@ -7,9 +7,10 @@ export const Context = React.createContext();
 
 function App() {
   const [favorites, setFavorites] = useState([]);
+  const [folders, setFolders] = useState([]);
   return (
     <div>
-      <Context.Provider value={[favorites,setFavorites]}>
+      <Context.Provider value={{ favorites, setFavorites, folders, setFolders }}>
         <NavBar />
         <main className='main-content'> 
           <Routes>
