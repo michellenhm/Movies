@@ -59,7 +59,7 @@ function Favorites() {
 
     fetchFolders();
     fetchFavorites();
-  }, []);
+  }, [folders]);
 
 
   return (
