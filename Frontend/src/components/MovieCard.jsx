@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "../css/MovieCard.css";
 import "../css/Favorites.css";
 import { Context } from "../App.jsx";
-import FolderPopup from "./FolderPopup.jsx";
+//import FolderPopup from "./FolderPopup.jsx";
 import AddToFolderPopup from "./AddToFolderPopup.jsx";
 
 export const MovieCard = ({ movie }) => {
@@ -103,12 +103,12 @@ export const MovieCard = ({ movie }) => {
           movie={movie} 
           folders={folders} 
           handleAddtoFolder={handleAddtoFolder}
-          setFolderPopup={setFolderPopup}
+          setFolders={setFolders}
           setShowPopup={setShowPopup}
         />
       )}
 
-      {folderPopup && (
+      {/* {folderPopup && (
         <FolderPopup
           folderName={folderName}
           setFolderName={setFolderName}
@@ -116,7 +116,7 @@ export const MovieCard = ({ movie }) => {
           folders={folders}
           setFolders={setFolders}
         />
-      )}
+      )} */}
 
       {toastMessage && (
         <div className="toast">{toastMessage}</div>

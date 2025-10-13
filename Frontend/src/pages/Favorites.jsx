@@ -5,7 +5,7 @@ import {Context} from '../App.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 import UpdateFolderPopup from '../components/UpdateFolderPopup.jsx';
-import FolderPopup from '../components/FolderPopup.jsx';
+//import FolderPopup from '../components/FolderPopup.jsx';
 
 function Favorites() {
   //const [favorites, setFavorites] = useContext(Context);
@@ -54,7 +54,6 @@ function Favorites() {
         const response = await fetch('http://localhost:8081/folders');
         const data = await response.json();
         setFolders(data);
-        console.log(data);
       } catch (err) {
         console.log("cannot fetch folders: ", err);
       }
@@ -102,7 +101,7 @@ function Favorites() {
                 
               </button>
             ))}
-            <button onClick={() => setFolderPopup(true)} className='add-folder-btn'>Add Folder</button>
+            {/* <button onClick={() => setFolderPopup(true)} className='add-folder-btn'>Add Folder</button> */}
           </div>
 
           {favorites.length === 0 ? (
@@ -124,6 +123,8 @@ function Favorites() {
                     }} className='pencil-btn'>
                       <FontAwesomeIcon icon={faPencil} style={{ color: "#ffffff" }} />
                     </button>
+
+                    
                     <button onClick={() => handleDeleteFolder(folder.id)} className='trash-btn'><FontAwesomeIcon icon={faTrashCan} style={{ color: "#ffffff" }} /></button>
                   </div>
                   
@@ -156,7 +157,7 @@ function Favorites() {
         />
       )}
       
-      {folderPopup && (
+      {/* {folderPopup && (
         <FolderPopup 
           folderName={newFolderName} 
           setFolderName={setNewFolderName} 
@@ -164,7 +165,7 @@ function Favorites() {
           folders={folders} 
           setFolders={setFolders} 
         />
-      )}
+      )} */}
 
 
 

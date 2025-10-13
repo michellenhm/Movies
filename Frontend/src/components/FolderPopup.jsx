@@ -1,63 +1,63 @@
-import React from 'react'
-import '../css/FolderPopup.css'
+// import React from 'react'
+// import '../css/FolderPopup.css'
 
-const FolderPopup = ({folderName, setFolderName, setFolderPopup, folders, setFolders }) => {
+// const FolderPopup = ({folderName, setFolderName, setFolderPopup, folders, setFolders }) => {
 
-    const handleChange = (e) => {
-        setFolderName(e.target.value);
-    }
+//     const handleChange = (e) => {
+//         setFolderName(e.target.value);
+//     }
 
-    const handleAddFolder = async () => {
-        if (!folderName.trim()) return; 
+//     const handleAddFolder = async () => {
+//         if (!folderName.trim()) return; 
 
-        try {
-            const res = await fetch('http://localhost:8081/addFolder', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: folderName }),
-            });
+//         try {
+//             const res = await fetch('http://localhost:8081/addFolder', {
+//                 method: 'POST',
+//                 headers: { 'Content-Type': 'application/json' },
+//                 body: JSON.stringify({ name: folderName }),
+//             });
 
-            if (!res.ok) {
-                const text = await res.text();
-                console.error('Server error:', text);
-                throw new Error('Failed to add folder');
-            }
+//             if (!res.ok) {
+//                 const text = await res.text();
+//                 console.error('Server error:', text);
+//                 throw new Error('Failed to add folder');
+//             }
 
-            const newFolder = await res.json();
-            //setFolders([...folders, newFolder]) relies on curr value of folders
-            setFolders(prev => [...prev, newFolder]); // updater function. receives latest state as prev. safe for concurrent updates
-            setFolderPopup(false);
-            setFolderName('');
-        } catch (err) {
-            console.log('Could not add folder:', err);
-        }
-    };
+//             const newFolder = await res.json();
+//             //setFolders([...folders, newFolder]) relies on curr value of folders
+//             setFolders(prev => [...prev, newFolder]); // updater function. receives latest state as prev. safe for concurrent updates
+//             setFolderPopup(false);
+//             setFolderName('');
+//         } catch (err) {
+//             console.log('Could not add folder:', err);
+//         }
+//     };
 
 
-    return (
-        <div className="folder-popup-overlay" onClick={() => setFolderPopup(false)} >
-            <div className="folder-popup" onClick={(e) => e.stopPropagation()}>
+//     return (
+//         <div className="folder-popup-overlay" onClick={() => setFolderPopup(false)} >
+//             <div className="folder-popup" onClick={(e) => e.stopPropagation()}>
         
-                <button className="close-btn" onClick={() => setFolderPopup(false)}>
-                    ❌
-                </button>
+//                 <button className="close-btn" onClick={() => setFolderPopup(false)}>
+//                     ❌
+//                 </button>
 
-                <h3 className='enter-name'>Enter new folder name: </h3>
+//                 <h3 className='enter-name'>Enter new folder name: </h3>
 
-                <input
-                    className='input'
-                    type="text"
-                    placeholder="Enter name"
-                    value={folderName}
-                    onChange={handleChange}
-                />
+//                 <input
+//                     className='input'
+//                     type="text"
+//                     placeholder="Enter name"
+//                     value={folderName}
+//                     onChange={handleChange}
+//                 />
 
-                <button onClick={() => handleAddFolder(folderName)}>Submit</button>
-            </div>
-        </div>
+//                 <button onClick={() => handleAddFolder(folderName)}>Submit</button>
+//             </div>
+//         </div>
 
-  )
-}
+//   )
+// }
 
-export default FolderPopup
+// export default FolderPopup
 

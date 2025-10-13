@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import "../css/Home.css";
 
 import Search from '../components/Search.jsx'
 import Spinner from '../components/Spinner.jsx'
 import MovieCard from '../components/MovieCard.jsx'
 import {useDebounce} from 'react-use'
+import {Context} from '../App.jsx'
 
 const API_BASE_URL = 'https://api.themoviedb.org/3'
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY
@@ -22,6 +23,8 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  const { favorites, setFavorites, folders, setFolders } = useContext(Context);
+
 
   //wait for user to stop typing for 500ms before updating debouncedSearchTerm
   useDebounce(() => {
@@ -31,6 +34,20 @@ function Home() {
   useEffect(() => {
     fetchMovies(debouncedSearchTerm)
   }, [debouncedSearchTerm])
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const res = await fetch('http://localhost:8081/favorites');
+        const data = await res.json();
+        setFavorites(data);
+      } catch (err) {
+        console.error('Failed to fetch favorites:', err);
+      }
+    };
+
+    fetchFavorites();
+  }, []); 
 
   const fetchMovies = async (query='') => {
     setLoading(true)
@@ -55,7 +72,7 @@ function Home() {
       
       //successful fetch, store data
       setMovies(data.results || []);
-      console.log(data);
+      //console.log(data);
       
     } catch (err) {
         console.log(err)

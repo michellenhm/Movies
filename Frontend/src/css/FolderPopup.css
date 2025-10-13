@@ -34,5 +34,25 @@
 }
 
 .input{
-    padding-left: 3%;
+  padding-left: 3%;
+}
+
+.folder-input {
+  padding: 5px;
+  margin-right: 5px;
+  border-radius: 4px;
+  width: 100%;
+  height: 50px;
+}
+
+.save-btn, .cancel-btn {
+  margin-left: 5px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-folder-popup-p {
+  padding-right: 10px;
+  font-size: x-large;
 }
