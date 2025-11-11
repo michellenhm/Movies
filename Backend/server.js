@@ -8,17 +8,18 @@ app.use(cors());
 app.use(express.json());
 require('dotenv').config();
 
-const PASSWORD = process.env.MYSQL_PASSWORD;
 const db = mysql2.createConnection({
     host: "localhost",
     user: "root",
-    password: PASSWORD,
-    database: "react_movie"
+    password: process.env.MYSQL_PASSWORD,
+    database: "movies"
 });
 
 db.connect((err) => {
     if (err) {
         console.error("❌ Database connection failed:", err);
+        console.log("MYSQL_PASSWORD =", process.env.MYSQL_PASSWORD);
+
         process.exit(1); 
     }
     console.log("✅ Database connected!");
